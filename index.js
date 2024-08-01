@@ -16,6 +16,7 @@ const imagePath = path.join(__dirname, 'images', 'idcard_image.jpg');
         const acdYrPattern = /Acd Yr\s*1\s*(\d{4}\s*-\s*\d{4})/i;
         const dobPattern = /DoB\s*([\dA-Za-z-]+)/i;
         const contactPattern = /Pmer9®n<Y\s*1([\d,\s]+)/i;
+        const bloodGrpPattern = /Bicod\sGp.\s*([A-Z]+)/i;
 
         const nameMatch = text.match(namePattern);
         // console.log("nameMatch", nameMatch)
@@ -24,6 +25,7 @@ const imagePath = path.join(__dirname, 'images', 'idcard_image.jpg');
         const acdYrMatch = text.match(acdYrPattern);
         const dobMatch = text.match(dobPattern);
         const contactMatch = text.match(contactPattern);
+        const bloodGrpMatch = text.match(bloodGrpPattern);
 
         const structuredData = {
             Name: nameMatch ? nameMatch[1].trim() : null,
@@ -31,6 +33,7 @@ const imagePath = path.join(__dirname, 'images', 'idcard_image.jpg');
             Branch: branchMatch ? branchMatch[1].trim() : null,
             Acd_Yr: acdYrMatch ? acdYrMatch[1].trim() : null,
             DoB: dobMatch ? dobMatch[1].trim() : null,
+            Blood_Grp: bloodGrpMatch ? bloodGrpMatch[1].trim().replace('s',' +') : null,
             Contact: contactMatch ? contactMatch[1].trim().split(", ") : null
         };
 
